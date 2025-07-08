@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cricket Game</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            margin-top: 50px;
+        }
+
+        button {
+            margin: 10px;
+            padding: 15px 30px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        h2 {
+            margin-top: 30px;
+            color: #333;
+        }
+        #give{
+            background-color: aqua;
+            border:3px dashed black;
+        }
+            
+        
+    </style>
+</head>
+
+<body>
+    <div id="give">
+        <h1>Bat Ball Stump Game</h1>
+        <button onclick="playGame('Bat')">Bat</button>
+        <button onclick="playGame('Ball')">Ball</button>
+        <button onclick="playGame('Stump')">Stump</button>
+    </div>
+
+    <h2 id="result"></h2>
+    <h2 id="computer-choice"></h2>
+
+    <script>
+        function playGame(userChoice) {
+            let randomNumber = Math.random() * 3;
+            let computerChoice;
+
+            if (randomNumber <= 1) {
+                computerChoice = 'Bat';
+            } else if (randomNumber <= 2) {
+                computerChoice = 'Ball';
+            } else {
+                computerChoice = 'Stump';
+            }
+
+            let resultMessage = '';
+
+            if (userChoice === computerChoice) {
+                resultMessage = "It's a tie!";
+            } else if (
+                (userChoice === 'Bat' && computerChoice === 'Ball') ||
+                (userChoice === 'Ball' && computerChoice === 'Stump') ||
+                (userChoice === 'Stump' && computerChoice === 'Bat')
+            ) {
+                resultMessage = "You won!";
+            } else {
+                resultMessage = "Computer has won!";
+            }
+
+            document.getElementById("result").innerText = `Result: ${resultMessage}`;
+            document.getElementById("computer-choice").innerText = `Computer chose: ${computerChoice}`;
+        }
+    </script>
+</body>
+
+</html>
