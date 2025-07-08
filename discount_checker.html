@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Train Ticket Discount Checker</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #e6f2ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: white;
+            padding: 30px 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            max-width: 400px;
+        }
+
+        h1 {
+            color: #004080;
+            margin-bottom: 10px;
+        }
+
+        .info {
+            font-size: 0.9rem;
+            color: #333;
+            text-align: left;
+            margin-top: 10px;
+            background-color: #f2f9ff;
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .buttons, .input-group {
+            margin: 15px 0;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 8px;
+            background-color: #004080;
+            color: white;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        button.selected {
+            background-color: #009933;
+        }
+
+        input {
+            padding: 10px;
+            font-size: 1rem;
+            width: 100px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+
+        p {
+            font-size: 1.2rem;
+            margin-top: 20px;
+        }
+
+        .highlight {
+            font-weight: bold;
+            color: green;
+        }
+
+        .note {
+            font-size: 0.9rem;
+            color: #555;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1> Train Ticket Discount Checker</h1>
+
+        <div class="buttons">
+            <p>Select Gender:</p>
+            <button onclick="setGender('male')" id="maleBtn">Male</button>
+            <button onclick="setGender('female')" id="femaleBtn">Female</button>
+        </div>
+
+        <div class="input-group">
+            <p>Enter Age:</p>
+            <input type="number" id="ageInput" min="0" placeholder="Your age">
+        </div>
+
+        <button onclick="checkDiscount()">Check Discount</button>
+
+        <p id="message"></p>
+
+        <div class="info">
+            <strong>Discount Criteria:</strong>
+            <ul style="text-align: left;">
+                <li><strong>Children (0-5 years):</strong> 100% discount</li>
+                <li><strong>Female (6-64 years):</strong> 50% discount</li>
+                <li><strong>Female (65+ years):</strong> 75% discount</li>
+                <li><strong>Male (6-8 years):</strong> 50% discount</li>
+                <li><strong>Male (9-64 years):</strong> No discount</li>
+                <li><strong>Male (65+ years):</strong> 70% discount</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        let selectedGender = null;
+
+        function setGender(gender) {
+            selectedGender = gender;
+            document.getElementById('maleBtn').classList.remove('selected');
+            document.getElementById('femaleBtn').classList.remove('selected');
+
+            if (gender === 'male') {
+                document.getElementById('maleBtn').classList.add('selected');
+            } else {
+                document.getElementById('femaleBtn').classList.add('selected');
+            }
+        }
+
+        function checkDiscount() {
+            const age = parseInt(document.getElementById('ageInput').value);
+            const messageElement = document.getElementById('message');
+
+            if (!selectedGender || isNaN(age)) {
+                messageElement.innerHTML = `<span style="color:red;">Please select gender and enter a valid age.</span>`;
+                return;
+            }
+
+            let discount;
+
+            if (selectedGender === 'female') {
+                if (age <= 5) {
+                    discount = 100;
+                } else if (age > 5 && age < 65) {
+                    discount = 50;
+                } else {
+                    discount = 75;
+                }
+            } else {
+                if (age <= 5) {
+                    discount = 100;
+                } else if (age > 5 && age <= 8) {
+                    discount = 50;
+                } else if (age > 8 && age < 65) {
+                    discount = 0;
+                } else {
+                    discount = 70;
+                }
+            }
+
+            messageElement.innerHTML = `🎫 You get a <span class="highlight">${discount}%</span> discount on your train ticket.`;
+        }
+    </script>
+</body>
+</html>
