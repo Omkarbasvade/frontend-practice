@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Comparison</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f0f4f8;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        input {
+            padding: 10px;
+            margin: 10px;
+            width: 150px;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #output {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Which Number is Bigger?</h2>
+        <input type="number" id="num1" placeholder="Enter first number">
+        <input type="number" id="num2" placeholder="Enter second number">
+        <br>
+        <button onclick="findBig()">Compare</button>
+        <p id="output"></p>
+    </div>
+
+    <script>
+        function findBig() {
+            let number1 = parseFloat(document.getElementById("num1").value);
+            let number2 = parseFloat(document.getElementById("num2").value);
+            let output = document.getElementById("output");
+
+            if (isNaN(number1) || isNaN(number2)) {
+                output.textContent = "Please enter valid numbers!";
+                output.style.color = "red";
+                return;
+            }
+
+            if (number1 > number2) {
+                output.textContent = `Number 1 (${number1}) is bigger than Number 2 (${number2}) ✅`;
+            } else if (number1 < number2) {
+                output.textContent = `Number 1 (${number1}) is smaller than Number 2 (${number2}) ❌`;
+            } else {
+                output.textContent = `Both numbers are equal 😊`;
+            }
+        }
+    </script>
+</body>
+</html>
